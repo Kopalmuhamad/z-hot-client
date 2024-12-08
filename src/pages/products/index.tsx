@@ -4,7 +4,33 @@ import { useProducts } from "@/features/products/use-products";
 import { Skeleton } from "@/components/atoms/skeleton"; // Import Skeleton
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/atoms/select";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { useCategories } from "@/features/category/use-categories";
+
+const categoryOptions = [
+    {
+        name: "all",
+    },
+    {
+        name: "cabai keriting"
+    },
+    {
+        name: "cabai merah"
+    },
+    {
+        name: "cabai hijau"
+    },
+    {
+        name: "cabai petikan"
+    },
+    {
+        name: "rawit hijau"
+    },
+    {
+        name: "rawit merah"
+    },
+    {
+        name: "rawit petikan"
+    },
+]
 
 const ProductsPage = () => {
     const [searchParams] = useSearchParams();
@@ -12,9 +38,6 @@ const ProductsPage = () => {
 
     // Use products hook with the selected category
     const { data: products, isLoading, error } = useProducts({ category });
-    const { data: categories, isLoading: categoriesLoading, } = useCategories()
-
-    // Use the navigate hook from react-router-dom to push the new category to the URL
     const navigate = useNavigate();
 
     const handleCategoryChange = (value: string) => {
@@ -33,29 +56,26 @@ const ProductsPage = () => {
                     <h1 className="text-h2 md:text-h1 font-montserrat-alt font-semibold text-foreground">
                         Products
                     </h1>
-                    {categoriesLoading ?
-                        (<Skeleton className="h-[50px]" />)
-                        :
-                        (<Select
-                            name="category"
-                            value={category}
-                            onValueChange={handleCategoryChange}
-                            aria-label="Select category filter"
-                        >
-                            <SelectTrigger className="capitalize max-w-[350px] justify-self-end">
-                                <SelectValue placeholder="Filter by category" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>Category</SelectLabel>
-                                    {categories?.map((category) => (
-                                        <SelectItem key={category._id} value={category._id} className="capitalize">
-                                            {category.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>)}
+                    <Select
+                        name="category"
+                        value={category}
+                        onValueChange={handleCategoryChange}
+                        aria-label="Select category filter"
+                    >
+                        <SelectTrigger className="capitalize max-w-[350px] justify-self-end">
+                            <SelectValue placeholder="Filter by category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Category</SelectLabel>
+                                {categoryOptions?.map((category) => (
+                                    <SelectItem key={category.name} value={category.name} className="capitalize">
+                                        {category.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </header>
 
                 {/* Error handling */}
