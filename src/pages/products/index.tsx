@@ -5,12 +5,23 @@ import { Skeleton } from "@/components/atoms/skeleton"; // Import Skeleton
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/atoms/select";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
+const categoryOptions = [
+    { label: "All", value: "all" },
+    { label: "Cabai Merah", value: "cabaiMerah" },
+    { label: "Cabai Hijau", value: "cabaiHijau" },
+    { label: "Rawit Merah", value: "rawitMerah" },
+    { label: "Rawit Hijau", value: "rawitHijau" },
+    { label: "Cabai Keriting", value: "cabaiKeriting" },
+    { label: "Cabai Petikan", value: "cabaiPetikan" },
+    { label: "Rawit Petikan", value: "rawitPetikan" },
+];
+
 const ProductsPage = () => {
     const [searchParams] = useSearchParams();
     const category = searchParams.get("category") || ""; // Get category from URL query params
 
     // Use products hook with the selected category
-    const { data: products, isLoading } = useProducts({ category });
+    const { data: products, isLoading, error } = useProducts({ category });
 
     // Use the navigate hook from react-router-dom to push the new category to the URL
     const navigate = useNavigate();
@@ -34,8 +45,9 @@ const ProductsPage = () => {
 
                     <Select
                         name="category"
-                        defaultValue={category}
+                        value={category}
                         onValueChange={handleCategoryChange}
+                        aria-label="Select category filter"
                     >
                         <SelectTrigger>
                             <SelectValue placeholder="Filter by category" />
@@ -43,18 +55,22 @@ const ProductsPage = () => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Category</SelectLabel>
-                                <SelectItem value="all">All</SelectItem>
-                                <SelectItem value="cabaiMerah">Cabai Merah</SelectItem>
-                                <SelectItem value="cabaiHijau">Cabai Hijau</SelectItem>
-                                <SelectItem value="rawitMerah">Rawit Merah</SelectItem>
-                                <SelectItem value="rawitHijau">Rawit Hijau</SelectItem>
-                                <SelectItem value="cabaiKeriting">Cabai Keriting</SelectItem>
-                                <SelectItem value="cabaiPetikan">Cabai Petikan</SelectItem>
-                                <SelectItem value="rawitPetikan">Rawit Petikan</SelectItem>
+                                {categoryOptions.map((option) => (
+                                    <SelectItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </SelectItem>
+                                ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 </header>
+
+                {/* Error handling */}
+                {error && (
+                    <div className="text-red-500">
+                        <p>Failed to load products. Please try again later.</p>
+                    </div>
+                )}
 
                 {/* Conditionally render Skeleton or Products based on loading state */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

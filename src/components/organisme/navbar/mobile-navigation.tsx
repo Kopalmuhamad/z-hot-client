@@ -14,18 +14,28 @@ import {
 } from "@/components/atoms/sheet"
 import Logo from "@/components/moleculs/logo"
 import { MenuIcon } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 const MobileNavigation = () => {
+    const { pathname } = useLocation()
+
+    // Helper function to determine if the link is active
+    const isActive = (path: string) => pathname === path ? "font-bold text-primary" : ""
+
     return (
         <Sheet>
             <SheetTrigger asChild className="md:hidden">
-                <Button id="menu" variant={"outline"} className="bg-transparent" size={"icon"}>
+                <Button
+                    id="menu"
+                    variant={"outline"}
+                    className="bg-transparent"
+                    size={"icon"}
+                    aria-label="Open navigation menu"
+                >
                     <MenuIcon />
                 </Button>
             </SheetTrigger>
-            <SheetContent className="z-[999]">
-
+            <SheetContent className="z-[999]" aria-labelledby="menu">
                 <SheetHeader>
                     <SheetTitle>
                         <Logo />
@@ -36,36 +46,29 @@ const MobileNavigation = () => {
                 </SheetHeader>
 
                 <Accordion type="single" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger>
-                            <Link to={'/'}>Home</Link>
-                        </AccordionTrigger>
-                    </AccordionItem>
-                    <AccordionItem value="item-2">
-                        <AccordionTrigger>
-                            <Link to={'/about'}>About</Link>
-                        </AccordionTrigger>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                        <AccordionTrigger>
-                            <Link to={'/product'}>Product</Link>
-                        </AccordionTrigger>
-                    </AccordionItem>
-                    <AccordionItem value="item-4">
-                        <AccordionTrigger>
-                            <Link to={'/location'}>Location</Link>
-                        </AccordionTrigger>
-                    </AccordionItem>
-                    <AccordionItem value="item-5">
-                        <AccordionTrigger>
-                            <Link to={'/our-team'}>Our Team</Link>
-                        </AccordionTrigger>
-                    </AccordionItem>
+                    {[
+                        { to: '/', label: 'Home' },
+                        { to: '/about', label: 'About' },
+                        { to: '/product', label: 'Product' },
+                        { to: '/location', label: 'Location' },
+                        { to: '/our-team', label: 'Our Team' }
+                    ].map(({ to, label }, index) => (
+                        <AccordionItem key={index} value={`item-${index + 1}`}>
+                            <AccordionTrigger>
+                                <Link
+                                    to={to}
+                                    className={`block py-2 px-4 ${isActive(to)}`}
+                                    aria-label={`Navigate to ${label}`}
+                                    aria-current={pathname === to ? "page" : undefined}
+                                >
+                                    {label}
+                                </Link>
+                            </AccordionTrigger>
+                        </AccordionItem>
+                    ))}
                 </Accordion>
-
             </SheetContent>
         </Sheet>
-
     )
 }
 

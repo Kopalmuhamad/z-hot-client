@@ -1,9 +1,8 @@
 import Container from "@/components/atoms/container"
 import FeatureCard from "@/components/moleculs/feature-card"
-
-import { IoMdClock } from "react-icons/io";
-import { MdLocalShipping } from "react-icons/md";
-import { FaAward } from "react-icons/fa";
+import { IoMdClock } from "react-icons/io"
+import { MdLocalShipping } from "react-icons/md"
+import { FaAward } from "react-icons/fa"
 
 const featuresData = [
     {
@@ -24,19 +23,22 @@ const featuresData = [
         title: "Best Quality",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse fuga adipisicing elit"
     },
-
 ]
 
 const Features = () => {
     return (
         <div className="pt-5 pb-10 bg-secondary">
-            <Container className=" space-y-4 flex flex-col items-center justify-center w-full">
-                <header className="text-h1 font-montserrat-alt font-semibold text-foreground">
+            <Container className="space-y-4 flex flex-col items-center justify-center w-full">
+                <header className="text-h1 font-montserrat-alt font-semibold text-foreground" id="features-header">
                     Features
                 </header>
-                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-4">
-                    {featuresData.map((features, index) => (
-                        <FeatureCard key={index} features={features} />
+                <div
+                    className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-4"
+                    role="region"
+                    aria-labelledby="features-header"
+                >
+                    {featuresData.map((feature, index) => (
+                        <FeatureCard key={index} features={feature} />
                     ))}
                 </div>
             </Container>
