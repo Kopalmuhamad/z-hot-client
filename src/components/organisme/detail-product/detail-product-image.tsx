@@ -32,8 +32,8 @@ const DetailProductImage = ({ images }: IProps) => {
                 }
 
             </CarouselContent>
-            <CarouselPrevious className="left-0" />
-            <CarouselNext className="right-0" />
+            <CarouselPrevious id="prev" className="left-0" />
+            <CarouselNext id="next" className="right-0" />
         </Carousel>
     )
 }

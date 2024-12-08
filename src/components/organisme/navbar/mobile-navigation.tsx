@@ -20,7 +20,7 @@ const MobileNavigation = () => {
     return (
         <Sheet>
             <SheetTrigger asChild className="md:hidden">
-                <Button variant={"outline"} size={"icon"}>
+                <Button id="menu" variant={"outline"} className="bg-transparent" size={"icon"}>
                     <MenuIcon />
                 </Button>
             </SheetTrigger>

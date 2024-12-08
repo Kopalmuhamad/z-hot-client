@@ -19,6 +19,7 @@ const Location = () => {
 
             </MapContainer>
             <Button
+                id="location-button"
                 className='bg-blue-600 mt-2 hover:bg-blue-400'
                 onClick={() => window.open(googleMapsUrl, "_blank")}
             >

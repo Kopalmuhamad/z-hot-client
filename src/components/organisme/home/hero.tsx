@@ -30,7 +30,7 @@ const Hero = () => {
                         <Skeleton className="min-h-[70vh] md:min-h-[90vh] h-full w-full" />
                         :
                         imagesSlider?.map((image) => (
-                            <CarouselItem key={image._id} className="min-h-[70vh]  md:min-h-[90vh] w-full" style={{
+                            <CarouselItem id={image._id} key={image._id} className="min-h-[70vh]  md:min-h-[90vh] w-full" style={{
                                 backgroundImage: `url('${image?.image}')`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center"
