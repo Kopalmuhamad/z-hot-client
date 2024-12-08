@@ -1,4 +1,5 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/atoms/carousel"
+import { Skeleton } from "@/components/atoms/skeleton";
 
 interface IProps {
     images: string[]
@@ -15,14 +16,21 @@ const DetailProductImage = ({ images }: IProps) => {
                 loop: true,
             }}>
             <CarouselContent className="w-full space-x-4 -ml-0">
-                {images.map((image, index) => (
-                    <CarouselItem key={index} className="min-h-[400px] aspect-video rounded-md w-full" style={{
-                        backgroundImage: `url(${image})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                    }}></CarouselItem>
-                ))}
+                {!images ?
+                    <CarouselItem>
+                        <Skeleton className="h-[400px] rounded-md w-full" />
+                    </CarouselItem>
+                    :
+                    images.map((image, index) => (
+                        <CarouselItem key={index} className="min-h-[400px] aspect-video rounded-md w-full" style={{
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                        }}></CarouselItem>
+                    ))
+                }
+
             </CarouselContent>
             <CarouselPrevious className="left-0" />
             <CarouselNext className="right-0" />

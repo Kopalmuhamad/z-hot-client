@@ -5,8 +5,13 @@ import {
     CarouselItem,
 } from "@/components/atoms/carousel"
 import { Button } from "@/components/atoms/button"
+import { useImagesSlider } from "@/features/image-slider/use-images-slider"
+import { Skeleton } from "@/components/atoms/skeleton"
 
 const Hero = () => {
+
+    const { data: imagesSlider, isLoading } = useImagesSlider()
+
     return (
         <section className="w-full relative">
             <Carousel
@@ -21,12 +26,17 @@ const Hero = () => {
                 ]}
             >
                 <CarouselContent>
-                    <CarouselItem className="min-h-[70vh]  md:min-h-[90vh] w-full" style={{ backgroundImage: "url('/hero-image-1.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-                    </CarouselItem>
-                    <CarouselItem className="min-h-[70vh]  md:min-h-[90vh] w-full" style={{ backgroundImage: "url('/hero-image-2.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-                    </CarouselItem>
-                    <CarouselItem className="min-h-[70vh]  md:min-h-[90vh] w-full" style={{ backgroundImage: "url('/hero-image-3.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-                    </CarouselItem>
+                    {isLoading ?
+                        <Skeleton className="min-h-[70vh] md:min-h-[90vh] h-full w-full" />
+                        :
+                        imagesSlider?.map((image) => (
+                            <CarouselItem key={image._id} className="min-h-[70vh]  md:min-h-[90vh] w-full" style={{
+                                backgroundImage: `url('${image?.image}')`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center"
+                            }}>
+                            </CarouselItem>
+                        ))}
                 </CarouselContent>
             </Carousel>
             <div className="absolute top-1/2 -translate-y-1/2 left-1 md:left-20 space-y-3 max-w-[600px]">

@@ -4,21 +4,25 @@ import { buttonVariants } from "../atoms/button"
 import { IArticle } from "@/features/articles/article-interface"
 
 interface IProps {
-    articles: IArticle
+    article: IArticle
 }
 
-const ArticleCard = ({ articles }: IProps) => {
+const ArticleCard = ({ article }: IProps) => {
     return (
-        <Link to={`/article/${articles?._id}`}>
+        <Link to={`/article/${article?._id}`}>
             <Card>
+
                 <CardHeader className="text-h4 font-semibold">
-                    {articles?.title}
+                    <img src={article?.image} alt={article?.title} className="aspect-video object-cover object-center" />
+                    {article?.title}
                 </CardHeader>
+
                 <CardContent className="line-clamp-[10]">
-                    {articles?.description}
+                    {article?.description}
                 </CardContent>
+
                 <CardFooter>
-                    <Link to={`/article/${articles?._id}`} className={buttonVariants({ variant: "link" })}>View More</Link>
+                    <Link to={`/article/${article?._id}`} className={buttonVariants({ variant: "link" })}>View More</Link>
                 </CardFooter>
             </Card>
         </Link>

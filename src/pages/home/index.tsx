@@ -1,7 +1,7 @@
 import Articles from "@/components/organisme/home/articles"
 import Features from "@/components/organisme/home/features"
 import Hero from "@/components/organisme/home/hero"
-import OurProduct from "@/components/organisme/home/our-product"
+import OurProduct from "@/components/organisme/home/categories"
 
 const HomePage = () => {
     return (
@@ -10,7 +10,6 @@ const HomePage = () => {
             <Features />
             <OurProduct />
             <Articles />
-
         </div>
     )
 }

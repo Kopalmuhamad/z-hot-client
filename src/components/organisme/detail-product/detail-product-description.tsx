@@ -6,6 +6,8 @@ interface IProps {
 }
 
 const DetailProductDescription = ({ products }: IProps) => {
+
+
     return (
         <div className="space-y-2">
             {products.new && <Badge>Newest</Badge>}

@@ -4,6 +4,7 @@ import DetailProductPage from "@/pages/detail-product"
 import HomePage from "@/pages/home"
 import LocationPage from "@/pages/location"
 import ProductsPage from "@/pages/products"
+import ProductsByCategoryPage from "@/pages/products-by-category"
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 
 const routes = createRoutesFromElements(
@@ -12,6 +13,7 @@ const routes = createRoutesFromElements(
       <Route path="/" element={<HomePage />} />
       <Route path="/product" element={<ProductsPage />} />
       <Route path="/product/:productId" element={<DetailProductPage />} />
+      <Route path="/product/category/:categoryId" element={<ProductsByCategoryPage />} />
       <Route path="/location" element={<LocationPage />} />
       <Route path="/article/:articleId" element={<DetailArticle />} />
     </Route>

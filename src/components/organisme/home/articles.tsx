@@ -4,9 +4,7 @@ import { IArticle } from "@/features/articles/article-interface";
 import { useArticles } from "@/features/articles/use-get-articles";
 
 const Articles = () => {
-    const { data: articles, isLoading } = useArticles();
-
-    if (isLoading) return <p>Loading...</p>
+    const { data: articles } = useArticles();
 
     return (
         <Container className="space-y-4 pb-20">
@@ -15,7 +13,7 @@ const Articles = () => {
             </header>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {articles?.map((article: IArticle) => (
-                    <ArticleCard key={article._id} articles={article} />
+                    <ArticleCard key={article._id} article={article} />
                 ))}
             </div>
         </Container>

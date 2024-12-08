@@ -7,19 +7,7 @@ import { useParams } from "react-router-dom";
 
 const DetailProductPage = () => {
     const { productId } = useParams();
-    const { data: product, isLoading, isError } = useProduct(productId as string);
-
-    if (isLoading) {
-        return <p>Loading...</p>;
-    }
-
-    if (isError) {
-        return <p>Error loading product details.</p>;
-    }
-
-    if (!product) {
-        return <p>Product not found.</p>;
-    }
+    const { data: product, isLoading } = useProduct(productId as string);
 
     const images = product?.image || [];
 
