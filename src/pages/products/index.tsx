@@ -68,7 +68,7 @@ const ProductsPage = () => {
                     ) : (
                         // Show Product cards once loading is complete
                         products?.map((product) => (
-                            <ProductCard card={product} key={product._id} />
+                            <ProductCard product={product} key={product._id} />
                         ))
                     )}
                 </div>
