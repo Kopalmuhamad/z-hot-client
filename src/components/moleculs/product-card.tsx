@@ -9,8 +9,8 @@ interface IProps {
 
 const ProductCard = ({ product }: IProps) => {
     return (
-        <Link to={`/product/${product?._id}`} className="flex h-full" aria-label={`Go to product ${product?.name}`}>
-            <Card className="overflow-hidden">
+        <Link to={`/product/${product?._id}`} className="flex h-full w-full" aria-label={`Go to product ${product?.name}`}>
+            <Card className="overflow-hidden w-full">
                 {/* Display Skeleton if no product is available */}
                 {!product ? (
                     <Skeleton className="h-[200px]" />

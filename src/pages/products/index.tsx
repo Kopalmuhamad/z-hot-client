@@ -4,17 +4,7 @@ import { useProducts } from "@/features/products/use-products";
 import { Skeleton } from "@/components/atoms/skeleton"; // Import Skeleton
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/atoms/select";
 import { useSearchParams, useNavigate } from "react-router-dom";
-
-const categoryOptions = [
-    { label: "All", value: "all" },
-    { label: "Cabai Merah", value: "cabaiMerah" },
-    { label: "Cabai Hijau", value: "cabaiHijau" },
-    { label: "Rawit Merah", value: "rawitMerah" },
-    { label: "Rawit Hijau", value: "rawitHijau" },
-    { label: "Cabai Keriting", value: "cabaiKeriting" },
-    { label: "Cabai Petikan", value: "cabaiPetikan" },
-    { label: "Rawit Petikan", value: "rawitPetikan" },
-];
+import { useCategories } from "@/features/category/use-categories";
 
 const ProductsPage = () => {
     const [searchParams] = useSearchParams();
@@ -22,6 +12,7 @@ const ProductsPage = () => {
 
     // Use products hook with the selected category
     const { data: products, isLoading, error } = useProducts({ category });
+    const { data: categories, isLoading: categoriesLoading, } = useCategories()
 
     // Use the navigate hook from react-router-dom to push the new category to the URL
     const navigate = useNavigate();
@@ -38,31 +29,33 @@ const ProductsPage = () => {
     return (
         <div className="w-full">
             <Container className="pt-20 pb-20 space-y-4">
-                <header>
-                    <h1 className="text-h1 font-montserrat-alt font-semibold text-foreground">
+                <header className="grid grid-cols-2">
+                    <h1 className="text-h2 md:text-h1 font-montserrat-alt font-semibold text-foreground">
                         Products
                     </h1>
-
-                    <Select
-                        name="category"
-                        value={category}
-                        onValueChange={handleCategoryChange}
-                        aria-label="Select category filter"
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder="Filter by category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Category</SelectLabel>
-                                {categoryOptions.map((option) => (
-                                    <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    {categoriesLoading ?
+                        (<Skeleton className="h-[50px]" />)
+                        :
+                        (<Select
+                            name="category"
+                            value={category}
+                            onValueChange={handleCategoryChange}
+                            aria-label="Select category filter"
+                        >
+                            <SelectTrigger className="capitalize max-w-[350px] justify-self-end">
+                                <SelectValue placeholder="Filter by category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Category</SelectLabel>
+                                    {categories?.map((category) => (
+                                        <SelectItem key={category._id} value={category._id} className="capitalize">
+                                            {category.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>)}
                 </header>
 
                 {/* Error handling */}
